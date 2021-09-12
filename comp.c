@@ -145,9 +145,9 @@ if (strcmp(fak, "cpustat") == 0)
 		} else
 			cputemp = 0;
 	if (cputemp >= 70)
-		sprintf(value+i, "[ %s %s %s %s ]  Tmp[^c%s^%d˚C^d^]", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], color9, cputemp);
+		sprintf(value+i, "[ %s %s %s %s ](^c%s^%d˚C^d^)", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], color9, cputemp);
 	else
-		sprintf(value+i, "[ %s %s %s %s ]  Tmp[%d˚C]", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], cputemp);
+		sprintf(value+i, "[ %s %s %s %s ](%d˚C)", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], cputemp);
 	}
 }
 
