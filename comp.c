@@ -286,7 +286,7 @@ if (strcmp(fak, "netlan") == 0)
 
 if (strcmp(fak, "updatestat") == 0)
 {
-	file = fopen("/home/philipp/.cache/updates","r");
+	file = popen("checkupdates | wc -l", "r");
 	if (file != NULL) {
 		int u = 0;
 		fscanf(file, "%d", &u);
