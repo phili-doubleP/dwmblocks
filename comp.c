@@ -511,8 +511,8 @@ if (strcmp(fak, "notify") == 0)
 	switch (clk) {
 		case 0: break;
 		case 1: system("cat /tmp/notify | sed 's/^\\^........\\^//; s/\\^d\\^//' | dmenu -ix -l 10 | sort -r | xargs -I {} sed -i '{}d' /tmp/notify"); break;
-		case 2: break;
-		case 3: break;
+		case 2: system("xsetroot -name 'msg: LEFT: open message-menu RIGHT: clear all messages'");
+		case 3: system("echo -n '' > /tmp/notify"); break;
 		case 4: break;
 		case 5: break;
 	}
