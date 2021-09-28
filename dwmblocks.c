@@ -83,7 +83,8 @@ void getcmd(const Block *block, char *output)
 	}
 	int isfunc = block->isFunc;
 	if (isfunc != 1) {	// If the block has IsFunc set to 0
-		strcpy(output, block->icon);
+		strcpy(output, predelim);
+		strcat(output, block->icon);
 		FILE *cmdf;
         if (!cmdf)
                 return;
@@ -103,21 +104,31 @@ void getcmd(const Block *block, char *output)
 			pclose(cmdf);
 			return;
 		}
-		if (delim[0] != '\0') {
+		if (postdelim[0] != '\0') {
 			//only chop off newline if one is present at the end
 			i = output[i-1] == '\n' ? i-1 : i;
-			strncpy(output+i, delim, delimLen);
+			strncpy(output+i, postdelim, delimLen);
 		} else
 			output[i++] = '\0';
         pclose(cmdf);
 	} else {
-		strcpy(output, block->icon);
+		strcpy(output, predelim);
+		strcat(output, block->icon);
 		if (*button) {
 			int c = *button - '0';
 			getstsmods(c, block->command, output);
 			*button = '\0';
 		} else {
 			getstsmods(0, block->command, output);
+		}
+		int i = strlen(output);
+		if (i != 0) { //return if block and command output are both empty
+			if (postdelim[0] != '\0') {
+				//only chop off newline if one is present at the end
+				i = output[i-1] == '\n' ? i-1 : i;
+				strncpy(output+i, postdelim, delimLen);
+			} else
+				output[i++] = '\0';
 		}
 	}
 }
@@ -168,7 +179,7 @@ int getstatus(char *str, char *last)
 	str[0] = '\0';
 	for (unsigned int i = 0; i < LENGTH(blocks); i++)
 		strcat(str, statusbar[i]);
-	str[strlen(str)-strlen(delim)] = '\0';
+	str[strlen(str)-strlen(postdelim)] = '\0';
 	return strcmp(str, last);	//0 if they are the same
 }
 
@@ -266,17 +277,18 @@ int main(int argc, char** argv)
 	sprintf(battery, "/sys/class/power_supply/%s/capacity", power_battery_name);
 	sprintf(adapter, "/sys/class/power_supply/%s/online", power_adapter_name);
 	for (int i = 0; i < argc; i++) { //Handle command line arguments
-		if (!strcmp("-d",argv[i]))
-			strncpy(delim, argv[++i], delimLen);
-		else if (!strcmp("-p",argv[i]))
+		if (!strcmp("-d",argv[i])) {
+			strncpy(postdelim, argv[++i], delimLen);
+			strncpy(predelim, argv[++i], delimLen);
+		} else if (!strcmp("-p",argv[i]))
 			writestatus = pstdout;
 	}
 #ifndef NO_X
 	if (!setupX())
 		return 1;
 #endif
-	delimLen = MIN(delimLen, strlen(delim));
-	delim[delimLen++] = '\0';
+	delimLen = MIN(delimLen, strlen(postdelim));
+	postdelim[delimLen++] = '\0';
 	signal(SIGTERM, termhandler);
 	signal(SIGINT, termhandler);
 	statusloop();

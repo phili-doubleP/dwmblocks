@@ -597,15 +597,6 @@ if (strcmp(fak, "power") == 0)
 	}
 }
 
-
-
-i = strlen(value);
-if (i != 0) //return if block and command output are both empty
-	if (delim[0] != '\0') {
-		//only chop off newline if one is present at the end
-		i = value[i-1] == '\n' ? i-1 : i;
-		strncpy(value+i, delim, delimLen);
-	}
 }
 
 
