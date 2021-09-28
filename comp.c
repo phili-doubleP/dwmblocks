@@ -503,6 +503,42 @@ if (strcmp(fak, "volume") == 0)
 
 
 //__________________________________________________________________________________
+//			NOTIFY
+//----------------------------------------------------------
+
+if (strcmp(fak, "notify") == 0)
+{
+	switch (clk) {
+		case 0: break;
+		case 1: system("cat /tmp/notify | sed 's/^\\^........\\^//; s/\\^d\\^//' | dmenu -ix -l 10 | sort -r | xargs -I {} sed -i '{}d' /tmp/notify"); break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+	}
+    int count = 0;
+    char c;  // To store a character read from file
+    file = fopen("/tmp/notify", "r");
+    if (file != NULL)
+    {
+	    for (c = getc(file); c != EOF; c = getc(file))
+	        if (c == '\n') // Increment count if this character is newline
+	            count = count + 1;
+	    fclose(file);
+
+		if (count > 9)
+			sprintf(value+i, "[^c%s^!^d^]", color9 );
+		else if (count > 4)
+			sprintf(value+i, "[^c%s^%d^d^]", color9, count );
+		else if (count == 0)
+			value[0] = '\0';
+		else
+			sprintf(value+i, "[%d]", count );
+    }
+}
+
+
+//__________________________________________________________________________________
 //			POWER
 //----------------------------------------------------------
 
