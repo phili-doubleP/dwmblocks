@@ -27,7 +27,8 @@ if (strcmp(fak, "memstat") == 0)
 {
 	switch (clk) {
 		case 0: break;
-		case 1: system("PID=$(ps aux | grep 'st -c dbar -n psmem' | grep -v grep | awk '{print $2}') && kill $PID || st -c dbar -n psmem -e psmem &"); break;
+		case 1: system("PID=$(ps aux | grep 'st -c dbar -n psmem' | grep -v ' grep' | awk '{print $2}') && kill $PID || \
+						st -c dbar -n psmem -e sh -c 'ps_mem -p $(pgrep -d, -u $USER) | less -S' &"); break;
 		case 2: break;
 		case 3: break;
 		case 4: break;
@@ -160,7 +161,8 @@ if (strcmp(fak, "datet") == 0)
 {
 	switch (clk) {
 		case 0: break;
-		case 1: system("PID=$(ps aux | grep 'st -c dbar -n calen' | grep -v grep | awk '{print $2}') && kill $PID || st -c dbar -n calen -e calen &"); break;
+		case 1: system("PID=$(ps aux | grep 'st -c dbar -n calen' | grep -v grep | awk '{print $2}') && kill $PID || \
+						st -c dbar -n calen -e sh -c 'cal --color=always | less -R' &"); break;
 		case 2: break;
 		case 3: break;
 		case 4: break;
@@ -200,7 +202,7 @@ if (strcmp(fak, "wifistat") == 0)
 {
 	switch (clk) {
 		case 0: break;
-		case 1: system("networkmanager_dmenu"); break;
+		case 1: system("networkmanager_dmenu &"); break;
 		case 2: break;
 		case 3: break;
 		case 4: break;
