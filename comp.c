@@ -582,19 +582,19 @@ if (strcmp(fak, "power") == 0)
 			batbar[1] = "█";
 
 	if (online != 0)
-		sprintf(value+i, "^b%s^^c%s^[%d%%%s]^d^", color3, color0, status, batbar[1]);
+		sprintf(value+i, "[%d%%^c%s^◉^d^]", status, color9);
 	else
 	{
 		if (status < 15)
-			sprintf(value+i, "^b%s^^c%s^[%d%%%s]^d^", color2, color0, status, batbar[1]);
+			sprintf(value+i, "[%d%%^b%s^^c%s^!^d^]", status, color9, color0);
 		else
 		{
 			if (status >= 15 && status < 33)
-				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color2, batbar[1]);
+				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color9, batbar[1]);
 			if (status >= 33 && status < 66)
-				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color4, batbar[1]);
+				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color11, batbar[1]);
 			if (status >= 66)
-				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color3, batbar[1]);
+				sprintf(value+i, "[%d%^c%s^%s^d^]", status, color10, batbar[1]);
 		}
 	}
 }
