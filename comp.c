@@ -27,8 +27,9 @@ if (strcmp(fak, "memstat") == 0)
 {
 	switch (clk) {
 		case 0: break;
-		case 1: system("PID=$(ps aux | grep 'st -c dbar -n psmem' | grep -v ' grep' | awk '{print $2}') && kill $PID || \
-						st -c dbar -n psmem -e sh -c 'ps_mem -p $(pgrep -d, -u $USER) | less -S' &"); break;
+		case 1: system("PID=$(ps aux | grep 'st -c dbar -n memtop' | grep -v ' grep' | awk '{print $2}') && kill $PID || \
+						st -c dbar -n memtop -e sh -c 'btop -p 3' &"); break;
+					//	st -c dbar -n memtop -e sh -c 'memtop -p $(pgrep -d, -u $USER) | less -S' &"); break;
 		case 2: break;
 		case 3: break;
 		case 4: break;
@@ -77,7 +78,8 @@ if (strcmp(fak, "cpustat") == 0)
 {
 	switch (clk) {
 		case 0: break;
-		case 1: system("PID=$(ps aux | grep 'st -c dbar -n htop' | grep -v grep | awk '{print $2}') && kill $PID || st -c dbar -n htop -e htop &"); break;
+		case 1: system("PID=$(ps aux | grep 'st -c dbar -n btop' | grep -v grep | awk '{print $2}') && kill $PID || st -c dbar -n btop -e btop -p 2 &"); break;
+	//	case 1: system("PID=$(ps aux | grep 'st -c dbar -n htop' | grep -v grep | awk '{print $2}') && kill $PID || st -c dbar -n htop -e htop &"); break;
 		case 2: break;
 		case 3: break;
 		case 4: break;
@@ -148,7 +150,7 @@ if (strcmp(fak, "cpustat") == 0)
 	if (cputemp >= 70)
 		sprintf(value+i, "[ %s %s %s %s ](^c%s^%d˚C^d^)", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], color9, cputemp);
 	else
-		sprintf(value+i, "[ %s %s %s %s ](%d˚C)", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], cputemp);
+		sprintf(value+i, "[ %s %s %s %s ](%d°C)", cpu_bar[0], cpu_bar[1], cpu_bar[2], cpu_bar[3], cputemp);
 	}
 }
 
@@ -582,7 +584,7 @@ if (strcmp(fak, "power") == 0)
 			batbar[1] = "█";
 
 	if (online != 0)
-		sprintf(value+i, "[%d%%^c%s^◉^d^]", status, color9);
+		sprintf(value+i, "[%d%%^b%s^^c%s^◉^d^]", status, color9, color0);
 	else
 	{
 		if (status < 15)
