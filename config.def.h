@@ -12,6 +12,8 @@ static const Block blocks[] = {
 	{"Mem:", 0, "free -h | awk '/^Mem/ { print $3\"/\"$2 }' | sed s/i//g",	30,		0},
 
 	{"", 0, "date '+%b %d (%a) %I:%M%p'",					5,		0},
+
+	{ "",			1,		"end",						0,	    	20 },
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.

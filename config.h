@@ -18,12 +18,13 @@ static const Block blocks[] = {
 	{ "Bat",		1,		"power",					1,			9 },
 	{ "Wifi",		1,		"wifistat",					1,			7 },
 	{ "Lan",		1,		"netlan",					1,			8 },
-	{ "Upd",		1,		"updatestat",				2000,	   	10 },
 //	{ "Usb",		1,		"busb",						0,			11 },
 //	{ "Fon",		1,		"android",					0,			12 },
 //	{ "Tm",			1,		"transmission",				60,			13 },
 	{ "Not",		1,		"notify",					0,	    	14 },
-	{ "",			0,      "", 						0,          20 },
+	{ "Upd",		1,		"updatestat",				2000,	   	10 },
+
+	{ "",			1,		"end",						0,	    	20 },
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.
